@@ -1,3 +1,5 @@
+
+import { Link } from "@material-ui/core";
 import {
   KeyboardArrowDownRounded,
   KeyboardArrowUpRounded,
@@ -7,16 +9,16 @@ import styles from "./CountriesTable.module.css";
 
 const orderBy = (countries, value, direction) => {
   if (direction === "asc") {
-    return [...countries.countries].sort((a, b) =>
+    return [...countries].sort((a, b) =>
       a[value] > b[value] ? 1 : -1
     );
   }
   if (direction === "desc") {
-    return [...countries.countries].sort((a, b) =>
+    return [...countries].sort((a, b) =>
       a[value] > b[value] ? -1 : 1
     );
   }
-  return countries.countries;
+  return countries;
 };
 
 const SortArrow = ({ direction }) => {
@@ -63,7 +65,7 @@ const CountriesTable = ({ countries }) => {
       <div className={styles.heading}>
         <button className={styles.heading_name} onClick={() => setValueAndDirection('names')}>
           <div>Name</div>
-          <SortArrow />
+          <SortArrow /> 
         </button>
 
         <button className={styles.heading_population} onClick={() => setValueAndDirection('population')}>
@@ -72,11 +74,15 @@ const CountriesTable = ({ countries }) => {
         </button>
       </div>
       {orderedCountries.map((country, index) => (
-        <div className={styles.row} key={index}>
+
+        <Link href= {`/country/${country.cca2}`} key={index}>
+          <div className={styles.row} >
           <div className={styles.name}>{country.name.common}</div>
 
           <div className={styles.population}>{country.population}</div>
         </div>
+        </Link>
+        
       ))}
     </div>
   );
